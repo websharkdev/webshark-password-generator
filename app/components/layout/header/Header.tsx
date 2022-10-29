@@ -8,8 +8,15 @@ import { data } from './data'
 
 type Props = {}
 
-const Root = styled(Grid)(({ theme }) => ({
+const Root = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
   padding: '24px 68px',
+  [theme.breakpoints.down('md')]: {
+    padding: '24px',
+  },
   '& .header-menu--item a': {
     textDecoration: 'none',
     fontWeight: 600,
@@ -23,18 +30,21 @@ const Root = styled(Grid)(({ theme }) => ({
 export const Header: FC<Props> = () => {
   const router = useRouter()
   return (
-    <Root container wrap="nowrap" justifyContent={'space-between'} alignItems="center">
-      <Grid item xs={'auto'}>
-        <Image src={data.logo} alt="logo image" height={28} />
-      </Grid>
-      <Grid item xs={3}>
-        <Box width={'100%'} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {data.menu.map((item) => (
-            <Box key={item.id} className={`header-menu--item ${router.pathname === item.href ? 'active' : ''}`}>
-              <Link href={item.href}>{item.name}</Link>
-            </Box>
-          ))}
-        </Box>
+    <Root>
+      <Box>
+        <Image src={data.logo} alt="logo image" className="header-menu--logo" width="120px" />
+      </Box>
+      <Grid container columnSpacing={6} justifyContent="flex-end" alignItems="center">
+        {data.menu.map((item) => (
+          <Grid
+            item
+            xs={'auto'}
+            key={item.id}
+            className={`header-menu--item ${router.pathname === item.href ? 'active' : ''}`}
+          >
+            <Link href={item.href}>{item.name}</Link>
+          </Grid>
+        ))}
       </Grid>
     </Root>
   )

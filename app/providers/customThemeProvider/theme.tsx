@@ -10,7 +10,7 @@ export const theme = createTheme({
       main: '#242424',
       light: '#111111',
       dark: '#000000',
-      contrastText: '#FFFFFF',
+      contrastText: '#f6f6f6',
     },
     secondary: {
       main: 'rgba(31, 23, 18, 0.64)',
@@ -43,7 +43,7 @@ export const theme = createTheme({
       contrastText: '#FFFFFF',
     },
     background: {
-      default: '#FFFFFF',
+      default: '#2C302E',
       paper: '#F6F6F6',
     },
     text: {
@@ -98,15 +98,36 @@ theme.components = {
   MuiButton: {
     variants: [
       {
+        props: { color: 'primary', variant: 'outlined' },
+        style: {
+          background: '#3C096C',
+          color: theme.palette.common.white,
+          transition: 'all 1s ease',
+          ':hover': {
+            background: '#5A189A',
+          },
+        },
+      },
+      {
+        props: { color: 'secondary', variant: 'contained' },
+        style: {
+          background: '#222',
+          color: theme.palette.common.white,
+          transition: 'all 1s ease',
+          ':hover': {
+            background: '#242424',
+          },
+        },
+      },
+      {
         props: { color: 'primary', variant: 'contained' },
         style: {
-          background: '#5A189A',
+          background: '#240046',
           position: 'relative',
           color: theme.palette.common.white,
           transition: 'all 1s ease',
           ':hover': {
-            background: '#240046',
-            boxShadow: '0px 4px 14px 0px rgba(0, 0, 0, 0.1) inset',
+            background: 'linear-gradient(95.54deg, #B8B8FF -12.24%, #9381FF 19.94%, #7B2CBF 72.87%)',
           },
         },
       },
@@ -426,6 +447,57 @@ theme.components = {
       icon: { top: 'auto', right: 14 },
       select: {
         border: 'none',
+      },
+    },
+  },
+  MuiSlider: {
+    styleOverrides: {
+      track: {
+        background: '#B8B8FF',
+      },
+      thumb: {
+        background: '#9381FF',
+      },
+      rail: {
+        background: '#B8B8FF',
+      },
+    },
+  },
+  MuiSwitch: {
+    styleOverrides: {
+      thumb: {
+        background: '#5A189A',
+        width: 15,
+        height: 15,
+        top: '50%',
+        transform: 'trasnlateY(-50%)',
+      },
+      track: {
+        background: '#fff',
+        opacity: 1,
+        height: 20,
+        width: 58,
+        borderRadius: 20,
+      },
+      switchBase: {
+        left: 7,
+        '&.Mui-checked': {
+          left: 0,
+          transform: 'translateX(24px) !important',
+          '& .MuiSwitch-thumb': {
+            background: '#fff',
+          },
+          '& + .MuiSwitch-track': {
+            backgroundColor: '#3C096C',
+            opacity: 1,
+          },
+        },
+      },
+      root: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 34,
+        width: 64,
       },
     },
   },
