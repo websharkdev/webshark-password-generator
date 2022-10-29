@@ -1,13 +1,13 @@
-import { FC } from 'react'
+import type { NextPage } from 'next'
 
-import Layout from '@/components/layout'
+import Layout from '@/components/layout/Layout'
 
 import { Home } from '@/screens/Home'
 
-import Meta from '@/utils/meta'
+import Meta from '@/utils/meta/Meta'
 
-const HomePage: FC = () => (
-  <Meta title="Home" description="Some description of page.">
+const HomePage: NextPage = () => (
+  <Meta title="Home" description="Welcome to the Bortnytskyi Alexey portfolio. It's home page">
     <Layout>
       <Home />
     </Layout>
