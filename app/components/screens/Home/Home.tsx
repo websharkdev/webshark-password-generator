@@ -15,6 +15,9 @@ const Root = styled(Box)(({ theme }) => ({
 
 const Body = styled(Grid)(({ theme }) => ({
   padding: '55px',
+  [theme.breakpoints.down('md')]: {
+    padding: '18px',
+  },
   background: theme.palette.background.default,
   borderRadius: theme.shape.borderRadius,
   '& .home-body--title': {
