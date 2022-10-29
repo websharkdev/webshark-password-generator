@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Slider, Stack, Switch, Typography, styled } from '@mui/material'
+import { Box, Button, Grid, Slider, Snackbar, Stack, Switch, Typography, styled } from '@mui/material'
 import { FC, useState } from 'react'
 import useCopyToClipboard from 'shared/hooks/useCopyToClipboard.hook'
 
@@ -52,6 +52,7 @@ const Body = styled(Grid)(({ theme }) => ({
 
 export const Home: FC<Props> = (props) => {
   const [password, setPassword] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [rules, setRules] = useState({
     count: {
       min: 5,
@@ -65,18 +66,41 @@ export const Home: FC<Props> = (props) => {
   })
   const [value, copyToClip] = useCopyToClipboard()
 
+  const randomSymbol = (count: number, code: number) => {
+    return String.fromCharCode(Math.floor(Math.random() * count) + code)
+  }
+
   const generatePassword = () => {
     const index = []
 
     for (let i = 0; i < rules.count.value; i++) {
-      index.push(String.fromCharCode(Math.floor(Math.random() * 26) + 97))
-      rules.uppercase ? index.push(String.fromCharCode(Math.floor(Math.random() * 26) + 65)) : null
-      rules.lowercase ? index.push(String.fromCharCode(Math.floor(Math.random() * 26) + 97)) : null
-      rules.numbers ? index.push(String.fromCharCode(Math.floor(Math.random() * 9) + 47)) : null
-      rules.symbols ? index.push(String.fromCharCode(Math.floor(Math.random() * 15) + 33).toLocaleLowerCase()) : null
+      index.push(randomSymbol(26, 97))
+      rules.uppercase ? index.push(randomSymbol(26, 65)) : null
+      rules.lowercase ? index.push(randomSymbol(26, 97)) : null
+      rules.numbers ? index.push(randomSymbol(9, 47)) : null
+      rules.symbols ? index.push(randomSymbol(15, 33).toLocaleLowerCase()) : null
     }
-    setPassword(index.toString().split(',').join('').slice(0, rules.count.value))
+    const currentPassword = index.toString().split(',').join('').slice(0, rules.count.value)
+    const LSPasswordHistory = window.localStorage.getItem('password_history')
+
+    const passwords: string = `${LSPasswordHistory || ''}${LSPasswordHistory ? ',' : ''} ${currentPassword}`
+
+    window.localStorage.setItem('password_history', passwords)
+    setPassword(currentPassword)
   }
+
+  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setIsOpen(false)
+  }
+
+  const action = (
+    <Button color="secondary" variant="outlined" size="small" onClick={handleClose}>
+      UNDO
+    </Button>
+  )
 
   return (
     <Root className={styles.Root}>
@@ -92,7 +116,10 @@ export const Home: FC<Props> = (props) => {
               className="home-body--clipboard"
               color="secondary"
               variant="contained"
-              onClick={() => copyToClip(password)}
+              onClick={() => {
+                copyToClip(password)
+                password !== '' ? setIsOpen(true) : null
+              }}
             >
               {password === '' ? 'Click Generate' : password}
             </Button>
@@ -192,6 +219,8 @@ export const Home: FC<Props> = (props) => {
           </Grid>
         </Body>
       </Box>
+
+      <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose} message="Coppyed!" action={action} />
     </Root>
   )
 }

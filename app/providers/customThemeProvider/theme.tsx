@@ -93,6 +93,15 @@ theme.components = {
           fill: '#03a9f4',
         },
       },
+      standardSuccess: {
+        background: '#9381FF',
+        border: `1px solid #9381FF`,
+        color: theme.palette.primary.contrastText,
+        fontWeight: 600,
+        '& svg path': {
+          fill: theme.palette.primary.contrastText,
+        },
+      },
     },
   },
   MuiButton: {
@@ -116,6 +125,17 @@ theme.components = {
           transition: 'all 1s ease',
           ':hover': {
             background: '#242424',
+          },
+        },
+      },
+      {
+        props: { color: 'secondary', variant: 'outlined' },
+        style: {
+          background: '#B8B8FF',
+          color: theme.palette.common.white,
+          transition: 'all 1s ease',
+          ':hover': {
+            background: '#9381FF',
           },
         },
       },
@@ -498,6 +518,20 @@ theme.components = {
         alignItems: 'center',
         height: 34,
         width: 64,
+      },
+    },
+  },
+
+  MuiSnackbar: {
+    styleOverrides: {
+      root: {
+        '& .MuiSnackbarContent-message': {
+          fontWeight: 600,
+        },
+        '& .MuiSnackbarContent-root': {
+          background: '#242424',
+          color: theme.palette.primary.contrastText,
+        },
       },
     },
   },
