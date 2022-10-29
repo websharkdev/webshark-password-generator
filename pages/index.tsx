@@ -9,9 +9,12 @@ import Meta from '@/utils/meta/Meta'
 const HomePage: NextPage = () => {
   return (
     <Meta title="Home" description="Some description of page.">
-      <Layout>
-        <Home />
-      </Layout>
+      <>
+        Hello world
+        <Layout>
+          <Home />
+        </Layout>
+      </>
     </Meta>
   )
 }
