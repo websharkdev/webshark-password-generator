@@ -64,22 +64,9 @@ const Root = styled(Grid)(({ theme }) => ({
 export const Footer: FC<Props> = (props) => {
   return (
     <Root container>
-      <Grid item xs={8} className="footer-leftSide">
-        <Grid container>
-          {/* <Grid item xs={9}>
-            <Box>
-              <Typography variant="h4">menu.</Typography>
-              <Box className="footer-leftSide--divider" />
-              <Box className="footer-leftSide--menu">
-                <Link href="/">home</Link>
-                <Link href="/">how to help Ukraine?</Link>
-                <Link href="/">home</Link>
-                <Link href="/">home</Link>
-                <Link href="/">home</Link>
-              </Box>
-            </Box>
-          </Grid> */}
-          <Grid item xs={5}>
+      <Grid item xs={12} md={8} className="footer-leftSide">
+        <Grid container rowSpacing={{ md: 0, xs: 5 }}>
+          <Grid item xs={12} sm={6} md={5}>
             <Box width={170}>
               <Typography variant="h4">Bortnytskyi Alexey.</Typography>
               <Box className="footer-leftSide--divider" />
@@ -89,14 +76,14 @@ export const Footer: FC<Props> = (props) => {
             </Box>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={6} sm={6} md={2}>
             <Typography variant="h6" className="footer-leftSide--createdWithLove">
               created in 2022 .//. with <span>❤</span>
             </Typography>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={4} className="footer-rightSide">
+      <Grid item xs={12} md={4} className="footer-rightSide">
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
             <Box className="footer-rightSide--divider" />
