@@ -14,6 +14,7 @@ const Root = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
+  padding: `${theme.spacing(10)} 0`,
 }))
 
 const Body = styled(Grid)(({ theme }) => ({
