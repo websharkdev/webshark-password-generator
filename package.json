@@ -19,6 +19,7 @@
     "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.5",
     "awesome-typescript-loader": "^5.2.1",
+    "moment": "^2.29.4",
     "next": "12.3.1",
     "next-auth": "^4.12.3",
     "prettier": "^2.7.1",
