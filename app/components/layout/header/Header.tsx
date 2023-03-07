@@ -1,7 +1,10 @@
-import { Grid, Switch, styled, useTheme } from '@mui/material'
+import { Grid, Switch, styled } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FC, useContext, useState } from 'react'
+import { FC, useContext } from 'react'
+import { useEffect } from 'react'
+
+import { LogoIcon, LogoLightIcon } from '@/assets/icons/logos'
 
 import { ColorModeContext } from '@/providers/customThemeProvider/CustomThemeProvider'
 
@@ -15,13 +18,15 @@ const Root = styled(Grid)(({ theme }) => ({
   alignItems: 'center',
   flexWrap: 'nowrap',
   padding: '24px 68px',
+  position: 'relative',
+  zIndex: 30,
   [theme.breakpoints.down('md')]: {
     padding: '24px',
   },
   '& .header-menu--item a': {
     textDecoration: 'none',
     fontWeight: 600,
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.text.primary,
   },
 
   '& .header-menu--burgerMenu': {
@@ -39,14 +44,16 @@ const Root = styled(Grid)(({ theme }) => ({
 }))
 
 export const Header: FC<Props> = () => {
-  const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
+
   return (
     <Root container columnGap={5}>
       <Grid item flex={1}>
-        <Image src={data.logo} alt="logo image" className="header-menu--logo" width="120px" />
-        {theme.palette.mode} mode
-        {theme.palette.mode === 'dark' ? <>123</> : <>321</>}
+        {colorMode.mode === 'light' ? (
+          <Image src={LogoLightIcon} alt="logo image" className="header-menu--logo" width="120px" />
+        ) : (
+          <Image src={LogoIcon} alt="logo image" className="header-menu--logo" width="120px" />
+        )}
       </Grid>
       <Grid item className="header-menu--listMenu">
         <Grid container columnSpacing={6} justifyContent="flex-end" alignItems="center">
@@ -60,8 +67,10 @@ export const Header: FC<Props> = () => {
       <Grid item>
         <Switch
           aria-label="password-rule-switch"
-          checked={theme.palette.mode === 'light'}
-          onChange={colorMode.toggleColorMode}
+          checked={colorMode.mode === 'light' ? true : false}
+          onChange={() => {
+            colorMode.toggleColorMode()
+          }}
           color="default"
         />
       </Grid>

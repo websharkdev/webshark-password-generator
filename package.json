@@ -16,9 +16,11 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@motionone/utils": "^10.15.1",
     "@mui/material": "^5.10.8",
     "@reduxjs/toolkit": "^1.8.5",
     "awesome-typescript-loader": "^5.2.1",
+    "framer-motion": "^10.1.0",
     "moment": "^2.29.4",
     "next": "12.3.1",
     "next-auth": "^4.12.3",
@@ -27,6 +29,7 @@
     "react-dom": "18.2.0",
     "sass": "^1.55.0",
     "sharp": "^0.31.1",
+    "swiper": "^9.1.0",
     "typescript": "^4.8.4"
   },
   "devDependencies": {

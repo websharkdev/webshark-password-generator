@@ -1,3 +1,5 @@
+import { ImageProps } from 'next/dist/client/image'
+
 export interface Image {
   src: string
   alt: string
@@ -9,11 +11,19 @@ export interface HomeSwiperItem {
   image: Image
 }
 
-/*
-    TODO
+type ImageSProps = {
+  xs?: number[]
+  sm?: number[]
+  md?: number[]
+  lg?: number[]
+  xl?: number[]
+}
 
-    01. Add folder hooks
-        001. check best practicals of custom hooks
-    02. Check react-hanger (it's shit 4 do some changes with arrays)
-
-*/
+export type PhotoContainerProps = {
+  mainPhoto?: ImageProps
+  photoBG?: ImageProps
+  position?: 'default' | 'unStyled' | 'block' | 'background'
+  size?: ImageSProps
+  shift?: ImageSProps
+  className?: string
+}

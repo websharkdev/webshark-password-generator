@@ -1,6 +1,5 @@
-import { Box, Button, Grid, Slider, Snackbar, Stack, Switch, Typography, styled, useTheme } from '@mui/material'
+import { Grid, Snackbar, styled } from '@mui/material'
 import { FC, useContext, useState } from 'react'
-import useCopyToClipboard from 'shared/hooks/useCopyToClipboard.hook'
 
 import styles from '@/screens/Home/home.module.sass'
 
@@ -18,6 +17,7 @@ const Root = styled(Grid)(({ theme }) => ({
   margin: '0 auto',
   padding: `0 ${theme.spacing(4)}`,
   overflow: 'hidden',
+  background: theme.palette.background.default,
 }))
 
 const Body = styled(Grid)(({ theme }) => ({
@@ -27,54 +27,95 @@ const Body = styled(Grid)(({ theme }) => ({
   },
   overflow: 'hidden',
   height: 'max-content',
-  background: 'linear-gradient(167.96deg, #262B2F 3.36%, #16191D 76.99%)',
+  background: theme.palette.background.paper,
   borderRadius: 30,
+  '&.light-mode': {
+    border: '1px solid #fff',
+    '& .home-body--item': {
+      color: theme.palette.primary.contrastText,
+      boxShadow: '-4px -2px 16px #FFFFFF, 4px 2px 16px rgba(136, 165, 191, 0.54)',
+      background: '#E3EDF7',
+      width: '100%',
+      minHeight: 64,
+      padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+      borderRadius: 16,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      '& p': {
+        paddingLeft: theme.spacing(3),
+        width: '100%',
+      },
+      '&.home-body--itemButton': {
+        background: '#C1E27D',
+        paddingLeft: theme.spacing(3),
+        '& p': {
+          color: theme.palette.text.primary,
+        },
+        '&:hover': {
+          background: '#BEFB40',
+        },
+      },
+    },
+    '& .home-body--icon': {
+      background: '#E3EDF7',
+      color: theme.palette.primary.contrastText,
+      boxShadow: '-4px -2px 16px #FFFFFF, 4px 2px 16px rgba(136, 165, 191, 0.48)',
+      padding: 10,
+      minWidth: 36,
+      minHeight: 36,
+      borderRadius: '50%',
+    },
+  },
+  '&.dark-mode': {
+    border: '1px solid #242424',
+    '& .home-body--item': {
+      color: theme.palette.primary.contrastText,
+      boxShadow: '-5px -6px 16px rgba(195, 200, 205, 0.04), 6px 6px 28px rgba(0, 0, 0, 0.3)',
+      background: 'linear-gradient(94.6deg, #32383E -60.81%, #17191C 185.78%)',
+      width: '100%',
+      minHeight: 64,
+      padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
+      borderRadius: 16,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      '& p': {
+        paddingLeft: theme.spacing(3),
+        width: '100%',
+      },
+      '&.home-body--itemButton': {
+        background: '#C1E27D',
+        paddingLeft: theme.spacing(3),
+        '& p': {
+          color: theme.palette.text.primary,
+        },
+        '&:hover': {
+          background: '#BEFB40',
+        },
+      },
+    },
+    '& .home-body--icon': {
+      background: 'linear-gradient(133.71deg, #32383E -30.53%, #17191C 126.55%)',
+      color: theme.palette.primary.contrastText,
+      padding: 10,
+      minWidth: 36,
+      minHeight: 36,
+      borderRadius: '50%',
+    },
+  },
   '& .home-body--title': {
-    color: '#D6E1EF',
+    color: theme.palette.text.primary,
     fontSize: 36,
     fontWeight: 700,
     lineHeight: '36px',
-  },
-  '& .home-body--item': {
-    color: theme.palette.primary.contrastText,
-    boxShadow: '-5px -6px 16px rgba(195, 200, 205, 0.04), 6px 6px 28px rgba(0, 0, 0, 0.3)',
-    background: 'linear-gradient(94.6deg, #32383E -60.81%, #17191C 185.78%)',
-    width: '100%',
-    minHeight: 64,
-    padding: `${theme.spacing(2)} ${theme.spacing(2.5)}`,
-    borderRadius: 16,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    '& p': {
-      paddingLeft: theme.spacing(3),
-      width: '100%',
-    },
-    '&.home-body--itemButton': {
-      background: '#C1E27D',
-      paddingLeft: theme.spacing(3),
-      '& p': {
-        color: theme.palette.text.primary,
-      },
-      '&:hover': {
-        background: '#BEFB40',
-      },
-    },
-  },
-  '& .home-body--icon': {
-    background: 'linear-gradient(133.71deg, #32383E -30.53%, #17191C 126.55%)',
-    color: theme.palette.primary.contrastText,
-    padding: 10,
-    minWidth: 36,
-    minHeight: 36,
-    borderRadius: '50%',
   },
   '& .home-body--text': {
     textAlign: 'left',
     fontSize: '18px',
     lineHeight: '18px',
     fontWeight: 500,
-    color: '#6D737A',
+    color: theme.palette.text.secondary,
     '& span': {
       fontWeight: 700,
     },
@@ -85,6 +126,7 @@ export const Home: FC<Props> = (props) => {
   const [password, setPassword] = useState<string>('')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isRemoved, setIsRemoved] = useState<boolean>(false)
+  const colorMode = useContext(ColorModeContext)
 
   // const Action = ({ onClick }: any) => (
   //   <Button color="secondary" variant="outlined" onClick={onClick} size="small">
@@ -98,11 +140,11 @@ export const Home: FC<Props> = (props) => {
   //   </Button>
   // )
   return (
-    <Root container className={styles.Root} columnGap={3}>
-      <Body item maxWidth={600} xs={4}>
+    <Root container className={`${styles.Root}`} columnGap={3}>
+      <Body item maxWidth={600} xs={4} className={`${colorMode.mode}-mode`}>
         <PasswordGenerator setPassword={setPassword} password={password} setIsOpen={setIsOpen} />
       </Body>
-      <Body item xs={8}>
+      <Body item xs={8} className={`${colorMode.mode}-mode`}>
         <PasswordHistory setIsOpen={setIsOpen} setIsRemoved={setIsRemoved} isRemoved={isRemoved} password={password} />
       </Body>
       <Snackbar

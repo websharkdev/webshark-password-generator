@@ -1,10 +1,13 @@
-import { Box, Button, Divider, Grid, IconButton, Slider, Stack, Switch, Typography, styled } from '@mui/material'
+import { Box, Button, Divider, Grid, Slider, Stack, Typography, styled } from '@mui/material'
 import moment from 'moment'
 import Image from 'next/dist/client/image'
-import { FC, useState } from 'react'
-import useCopyToClipboard from 'shared/hooks/useCopyToClipboard.hook'
+import { FC, useContext, useState } from 'react'
 
-import { CopyIcon } from '@/assets/icons/ui'
+import { useCopyToClipboard } from '@/shared/hooks'
+
+import { CopyIcon, CopyLightIcon } from '@/assets/icons/ui'
+
+import { ColorModeContext } from '@/providers/customThemeProvider/CustomThemeProvider'
 
 import { PasswordRule } from './PasswordRule'
 
@@ -34,6 +37,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
     symbols: false,
   })
   const [value, copyToClip] = useCopyToClipboard()
+  const colorMode = useContext(ColorModeContext)
 
   const randomSymbol = (count: number, code: number) => {
     return String.fromCharCode(Math.floor(Math.random() * count) + code)
@@ -88,7 +92,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
             {password === '' ? 'Click Generate' : password}
           </Typography>
           <Stack className="home-body--icon">
-            <Image src={CopyIcon} />
+            {colorMode.mode === 'light' ? <Image src={CopyLightIcon} /> : <Image src={CopyIcon} />}
           </Stack>
         </Button>
       </Grid>
@@ -153,10 +157,8 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
       </Grid>
       <Grid item xs={12}>
         <Divider />
-        <Button className="home-body--item home-body--itemButton unStyled" sx={{ mt: 4 }} onClick={generatePassword}>
-          <Typography variant="body2" className="home-body--text">
-            Generate Password
-          </Typography>
+        <Button sx={{ mt: 4 }} fullWidth variant="contained" color="primary" onClick={generatePassword}>
+          <Typography variant="body2">Generate Password</Typography>
         </Button>
       </Grid>
     </Root>

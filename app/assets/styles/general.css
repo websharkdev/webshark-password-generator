@@ -1,0 +1,59 @@
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    position: relative;
+    /* firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+}
+
+.scroll-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    will-change: transform;
+    z-index: -3;
+
+}
+
+.item {
+    overflow: visible;
+    stroke: #2d2d2d;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+}
+
+/* img {
+    aspect-ratio: 16/9;
+    width: 100%;
+    object-fit: cover;
+} */

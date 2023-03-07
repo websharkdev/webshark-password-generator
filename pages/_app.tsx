@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app'
 
+import '@/assets/styles/general.css'
+
 import MaineProvider from '@/providers/MaineProvider'
 
 import styles from '@/styles/globals.sass'
