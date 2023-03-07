@@ -66,11 +66,7 @@ theme.components = {
           minHeight: 64,
           '& p': {
             color: '#111',
-            fontSize: 20,
-            fontWeight: 500,
-            textAlign: 'left',
             width: '100%',
-            paddingLeft: theme.spacing(3),
           },
           ':hover': {
             boxShadow: '-5px -6px 16px rgba(195, 200, 205, 0.04), 6px 6px 28px rgba(0, 0, 0, 0.3)',
@@ -461,6 +457,71 @@ theme.components = {
     },
   },
 
+  MuiTypography: {
+    styleOverrides: {
+      h1: {
+        fontSize: 96,
+        fontWeight: 600,
+        letterSpacing: 1.5,
+        lineHeight: '98px',
+        [theme.breakpoints.down('lg')]: {
+          fontSize: 64,
+          lineHeight: '85px',
+        },
+        [theme.breakpoints.down('md')]: {
+          fontSize: 48,
+          lineHeight: '70px',
+        },
+        [theme.breakpoints.down('sm')]: {
+          fontSize: 36,
+          lineHeight: '70px',
+        },
+        [theme.breakpoints.down(490)]: {
+          fontSize: 32,
+          lineHeight: 'auto',
+        },
+        [theme.breakpoints.down(360)]: {
+          fontSize: 21,
+        },
+      },
+      h3: {
+        [theme.breakpoints.down('md')]: {
+          fontSize: '1.4em',
+          letterSpacing: '0.8px',
+        },
+      },
+      h2: {
+        [theme.breakpoints.down('lg')]: {
+          fontSize: '1.5em',
+          letterSpacing: '0.8px',
+        },
+      },
+      body1: {
+        fontWeight: 500,
+        fontSize: 16,
+        lineHeight: 1.4,
+        letterSpacing: '1px',
+        hyphens: 'auto',
+        textAlign: 'left',
+        [theme.breakpoints.down('md')]: {
+          fontSize: 14,
+          letterSpacing: 'normal',
+        },
+      },
+      body2: {
+        fontWeight: 600,
+        fontSize: 16,
+        lineHeight: 1.4,
+        letterSpacing: '1px',
+        hyphens: 'auto',
+        textAlign: 'left',
+        [theme.breakpoints.down('md')]: {
+          fontSize: 14,
+          letterSpacing: 'normal',
+        },
+      },
+    },
+  },
   MuiSnackbar: {
     styleOverrides: {
       root: {
@@ -730,11 +791,7 @@ export const lightTheme = createTheme({
             minHeight: 64,
             '& p': {
               color: '#111',
-              fontSize: 18,
-              fontWeight: 500,
-              textAlign: 'left',
               width: '100%',
-              paddingLeft: theme.spacing(3),
             },
             ':hover': {
               boxShadow: '-4px -2px 16px #FFFFFF, 4px 2px 16px rgba(136, 165, 191, 0.54)',

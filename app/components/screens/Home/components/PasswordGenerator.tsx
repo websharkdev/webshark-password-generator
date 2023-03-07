@@ -68,7 +68,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
   return (
     <Root container rowSpacing={5}>
       <Grid item xs={12}>
-        <Typography variant="h5" className="home-body--title">
+        <Typography variant="h3" className="home-body--title">
           Password Generator
         </Typography>
       </Grid>
@@ -89,7 +89,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
           }}
         >
           <Typography variant="body2" className="home-body--text">
-            {password === '' ? 'Click Generate' : password}
+            {password === '' ? 'Click Generate' : `${password.slice(0, 15)}...`}
           </Typography>
           <Stack className="home-body--icon">
             {colorMode.mode === 'light' ? <Image src={CopyLightIcon} /> : <Image src={CopyIcon} />}
@@ -97,7 +97,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
         </Button>
       </Grid>
       <Grid item xs={12}>
-        <Typography className="home-body--text">
+        <Typography className="home-body--text" variant="body2">
           Length <span>{rules.count.value}</span>
         </Typography>
 
@@ -118,7 +118,7 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <Typography className="home-body--text" sx={{ mb: 4 }}>
+        <Typography className="home-body--text" variant="body2" sx={{ mb: 4 }}>
           Settings
         </Typography>
         <Divider />
@@ -158,7 +158,9 @@ export const PasswordGenerator: FC<Props> = ({ setPassword, password, setIsOpen 
       <Grid item xs={12}>
         <Divider />
         <Button sx={{ mt: 4 }} fullWidth variant="contained" color="primary" onClick={generatePassword}>
-          <Typography variant="body2">Generate Password</Typography>
+          <Typography variant="body2" sx={{ pl: 3 }}>
+            Generate Password
+          </Typography>
         </Button>
       </Grid>
     </Root>

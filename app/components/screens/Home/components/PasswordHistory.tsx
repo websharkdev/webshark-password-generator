@@ -24,7 +24,9 @@ export const PasswordHistory: FC<Props> = ({ setIsRemoved, isRemoved, password, 
   return (
     <Root container rowSpacing={5} flexDirection="column" flexWrap="nowrap">
       <Grid item xs={12}>
-        <Typography className="home-body--title">Generated password history</Typography>
+        <Typography className="home-body--title" variant="h3">
+          Generated password history
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         {LSData && LSData.length > 0 ? (

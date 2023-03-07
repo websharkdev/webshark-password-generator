@@ -13,17 +13,22 @@ type Props = {}
 const Root = styled(Grid)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  flexWrap: 'nowrap',
   margin: '0 auto',
-  padding: `0 ${theme.spacing(4)}`,
+  padding: `${theme.spacing(12)} ${theme.spacing(4)}`,
+  [theme.breakpoints.down('md')]: {
+    padding: `${theme.spacing(4)} ${theme.spacing(2)}`,
+  },
   overflow: 'hidden',
   background: theme.palette.background.default,
+  [theme.breakpoints.up('md')]: {
+    flexWrap: 'nowrap',
+  },
 }))
 
 const Body = styled(Grid)(({ theme }) => ({
   padding: '36px 34px',
   [theme.breakpoints.down('md')]: {
-    padding: '36px 34px',
+    padding: '26px 20px',
   },
   overflow: 'hidden',
   height: 'max-content',
@@ -106,15 +111,8 @@ const Body = styled(Grid)(({ theme }) => ({
   },
   '& .home-body--title': {
     color: theme.palette.text.primary,
-    fontSize: 36,
-    fontWeight: 700,
-    lineHeight: '36px',
   },
   '& .home-body--text': {
-    textAlign: 'left',
-    fontSize: '18px',
-    lineHeight: '18px',
-    fontWeight: 500,
     color: theme.palette.text.secondary,
     '& span': {
       fontWeight: 700,
@@ -140,11 +138,11 @@ export const Home: FC<Props> = (props) => {
   //   </Button>
   // )
   return (
-    <Root container className={`${styles.Root}`} columnGap={3}>
-      <Body item maxWidth={600} xs={4} className={`${colorMode.mode}-mode`}>
+    <Root container className={`${styles.Root}`} columnGap={3} rowGap={6}>
+      <Body item maxWidth={600} xs={12} md={6} xl={4} className={`${colorMode.mode}-mode`}>
         <PasswordGenerator setPassword={setPassword} password={password} setIsOpen={setIsOpen} />
       </Body>
-      <Body item xs={8} className={`${colorMode.mode}-mode`}>
+      <Body item xs={12} md={6} xl={8} className={`${colorMode.mode}-mode`}>
         <PasswordHistory setIsOpen={setIsOpen} setIsRemoved={setIsRemoved} isRemoved={isRemoved} password={password} />
       </Body>
       <Snackbar

@@ -37,7 +37,7 @@ const Root = styled(Grid)(({ theme }) => ({
   },
   '& .header-menu--listMenu': {
     display: 'flex',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },

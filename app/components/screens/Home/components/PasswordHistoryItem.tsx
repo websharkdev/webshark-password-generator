@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography, styled } from '@mui/material'
+import { Grid, IconButton, Typography, styled, useMediaQuery } from '@mui/material'
 import moment from 'moment'
 import Image from 'next/dist/client/image'
 import { FC, useContext } from 'react'
@@ -20,7 +20,17 @@ type Props = {
 const Root = styled(Grid)(({ theme }) => ({}))
 
 export const PasswordHistoryItem: FC<Props> = ({ data, setIsRemoved, setIsOpen, LSData, setLSData }) => {
-  const date = moment(data[1]).format('MM.DD.YYYY h:mm A')
+  const tablet = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.between('md', 'lg')
+  )
+  const mobile = useMediaQuery((theme) =>
+    // @ts-ignore
+    theme.breakpoints.down(540)
+  )
+  const fomrat = tablet ? 'M/D/YY HH:MM' : mobile ? 'M/D/YY HHA' : 'MM/DD/YY HH:MM'
+
+  const date = moment(data[1]).format(fomrat)
   const [value, copyToClip] = useCopyToClipboard()
   const colorMode = useContext(ColorModeContext)
 
@@ -43,10 +53,12 @@ export const PasswordHistoryItem: FC<Props> = ({ data, setIsRemoved, setIsOpen, 
         >
           {colorMode.mode === 'light' ? <Image src={CopyLightIcon} /> : <Image src={CopyIcon} />}
         </IconButton>
-        <Typography className="home-body--text">{data[0]}</Typography>
+        <Typography variant="body2" className="home-body--text">
+          {data[0].length > 15 ? `${data[0].slice(0, tablet ? 7 : mobile ? 7 : 15)}...` : data[0]}
+        </Typography>
       </Grid>
       <Grid item sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 'max-content' }}>
-        <Typography className="home-body--text" sx={{ pl: '0 !important', mr: 3 }}>
+        <Typography variant="body2" className="home-body--text" sx={{ pl: '0 !important', mr: { xs: 2, md: 3 } }}>
           {date}
         </Typography>
         <IconButton className="home-body--icon" onClick={getIDLS}>
